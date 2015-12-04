@@ -1,5 +1,5 @@
 program wien_filter
-  use values
+  use valuesk
   use phys
   use verlet
   use cmd_line
