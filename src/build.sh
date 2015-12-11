@@ -2,7 +2,8 @@
 fcomp=$1
 fopt=``
     if [ "$fcomp" == 'ifort' ]; then
-	fopt='-fast -CB -parallel -ipo -par-report=3'
+	fopt='-fast -CB -parallel -openmp' #-par-report=3' #devel
+	#fopt='-fast -parallel -qopenmp -fno-alias -m64 -simd -qoffload-arch=ivybridge'
     elif [ "$fcomp" == 'gfortran' ]; then
 	fopt='-fbounds-check -O3'
     else
