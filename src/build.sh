@@ -2,7 +2,7 @@
 fcomp=$1
 fopt=``
     if [ "$fcomp" == 'ifort' ]; then
-	fopt='-fast -CB'
+	fopt='-fast -CB -parallel -ipo'
     elif [ "$fcomp" == 'gfortran' ]; then
 	fopt='-fbounds-check'
     else

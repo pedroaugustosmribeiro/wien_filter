@@ -6,8 +6,8 @@ module values
   !me: mass of electron in kg
 
 contains
-  
-  function cross(a,b)
+
+  pure function cross(a,b)
     real(rk),intent(in),dimension(3) :: a,b
     real(rk) :: cross(3)
 

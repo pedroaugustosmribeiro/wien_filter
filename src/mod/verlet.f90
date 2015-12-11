@@ -2,19 +2,18 @@ module verlet
   use values
   use phys
   implicit none
-  real(rk) :: q,m
-  real(rk),dimension(3) :: x,v,E,B,dt,a
 
 contains
 
-  subroutine integrate()
-    real(rk),dimension(3) :: a_old,vn
+  pure subroutine integrate(E,B,dt,q,m,x,v,a)
+    real(rk),intent(in),dimension(3) :: E,B
+    real(rk),intent(in) :: dt,q,m
+    real(rk),intent(inout),dimension(3) :: x,v,a
+    real(rk),dimension(3) :: vn
 
     x=x+v*dt+a*(dt**2)
     vn=v+a*dt
-    a_old=a
-    a=fl(q,m,E,B,vn)
-    v=v+0.5_rk*(a_old+a)*dt
+    v=v+0.5_rk*(a+fl(q,m,E,B,vn))*dt
 
   end subroutine integrate
 
