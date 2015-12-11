@@ -2,9 +2,9 @@
 fcomp=$1
 fopt=``
     if [ "$fcomp" == 'ifort' ]; then
-	fopt='-fast -CB -parallel -ipo'
+	fopt='-fast -CB -parallel -ipo -par-report=3'
     elif [ "$fcomp" == 'gfortran' ]; then
-	fopt='-fbounds-check'
+	fopt='-fbounds-check -O3'
     else
 	echo './build.sh [ifort or gfortran]'
 	exit 1
