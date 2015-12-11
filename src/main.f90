@@ -29,7 +29,6 @@ program wien_filter
   !output file opening
   open(20,file='../run/output.dat',action='write')
   write(20,*)
-  inquire(20,pos=position)
   s=0 !succesfull particle counter
 
   !fields initialization
@@ -71,7 +70,7 @@ program wien_filter
      end do simulation
 
   end do particles
-  !write(20,pos=position,'(i0)'),s
+  write(20,'(i0)'),s
   close(10)
   close(20)
 
