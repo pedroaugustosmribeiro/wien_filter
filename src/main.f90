@@ -4,7 +4,7 @@ program wien_filter
   use verlet
   use cmd_line
   implicit none
-  integer(ik) :: i,p,n_p,n
+  integer(ik) :: i,p,n_p,n,s,position
   real(rk) :: e_in,b_in,m_i,q_i,m,q,dt
   real(rk),dimension(3) :: L,v_i,x,v,a,E,B
 
@@ -23,8 +23,14 @@ program wien_filter
   end if check_input
 
   !input file opening
-  open(1,file='../run/input.dat',action='read')
-  read(1,*),n_p
+  open(10,file='../run/input.dat',action='read')
+  read(10,*),n_p !number of particles to proccess
+
+  !output file opening
+  open(20,file='../run/output.dat',action='write')
+  write(20,*)
+  inquire(20,pos=position)
+  s=0 !succesfull particle counter
 
   !fields initialization
   E=real([0,0,1],rk)*e_in !in V/m
@@ -33,11 +39,16 @@ program wien_filter
   particles: do p=1,n_p
 
      !particle initialization
-     read(1,*),n,v_i,m_i,q_i
-     q=q_i*qe !in C
-     m=m_i*me !in kg
+     read(10,*),n,v_i,m_i,q_i
+     !n: particle number
+     !v_i: initial velocity
+     !m_i: mass of particle in units of electron mass
+     !q_i: charge of particle in units of electron charge
+     q=q_i*qe !q in C
+     m=abs(m_i)*me !m in kg:
+     !Note that mass can't be negative (automatic error correction)
 
-     x=[L(1)/2,.0_rk,L(3)/2]
+     x=[L(1)/2,.0_rk,L(3)/2] !initial position at the center of the box
      v=v_i
      a=fl(q,m,E,B,v)
      i=0
@@ -49,9 +60,9 @@ program wien_filter
            print *,n,'filtered in',i !unsuccesful :(
            exit
         else if (x(2)>=L(2)) then
+           s=s+1
            print *,n,'passed in ',i !succesful :)
-           print *,v
-           print *,x
+           write(20,'(i0,x,8(g0,x))'),n,v,x,m_i,q_i
            exit
         end if
 
@@ -60,7 +71,8 @@ program wien_filter
      end do simulation
 
   end do particles
+  !write(20,pos=position,'(i0)'),s
+  close(10)
+  close(20)
 
-  close(1)
-  
 end program wien_filter
