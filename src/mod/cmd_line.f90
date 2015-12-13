@@ -1,7 +1,7 @@
 module cmd_line
   use values
   implicit none
-  integer,parameter,private :: MAXBUF=200
+  integer,parameter :: MAXBUF=200
   character(len=MAXBUF),private :: argu
   real(rk),parameter :: outreal=huge(1.0_rk)
 contains
