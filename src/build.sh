@@ -5,9 +5,9 @@ fopt=``
 fdevel=``
     if [ "$fcomp" == 'ifort' ]; then
 	#fopt='-fast -parallel -openmp -par-report=3' #devel
-	fopt='-fast -parallel -qopenmp -fno-alias -m64 -simd -qoffload-arch=ivybridge -qopt-report=2'
+	fopt='-fast -parallel  -fno-alias -m64 -simd -qoffload-arch=ivybridge -qopt-report=2'
 	if [ "$fmode" == 'devel' ]; then
-	    fdevel='-CB'	    
+	    fdevel='-qopenmp'	    
 	fi
     elif [ "$fcomp" == 'gfortran' ]; then
 	fopt='-O3'

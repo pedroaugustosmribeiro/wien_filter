@@ -54,7 +54,7 @@ program wien_filter
 
   q_i=q_i*qe
   m_i=abs(m_i)*me
-!$OMP PARALLEL DO
+  !$OMP PARALLEL DO ORDERED SCHEDULE(runtime)
   particles: do  p=1,n_p
 
      !particle initialization
@@ -70,16 +70,16 @@ program wien_filter
      v=v_i(:,p)
      a=fl(q,m,E,B,v)
      i=0
-
+     !$OMP ORDERED
      simulation:  do
 
         !stop criterias
         if ((abs(x(1))>=L(1)).or.(abs(x(3))>=L(3))) then
-           !print *,n(p),'filtered in',i !unsuccesful :(
+           print *,n(p),'filtered in',i !unsuccesful :(
            passed(p)=.false.
            exit
         else if (x(2)>=L(2)) then
-           !print *,n(p),'passed in ',i !succesful :)
+           print *,n(p),'passed in ',i !succesful :)
            passed(p)=.true.
            v_f(:,p)=v
            x_f(:,p)=x
@@ -89,9 +89,9 @@ program wien_filter
         call integrate(E,B,dt,q,m,x,v,a) !integrate subroutine in verlet.f90 module
         i=i+1
      end do simulation
-
+     !$OMP END ORDERED
   end do particles
-!$OMP END PARALLEL DO
+  !$OMP END PARALLEL DO
   !output file opening
   open(20,file=outputfile,iostat=ios2,action='write')
   if (ios2/=0) then
