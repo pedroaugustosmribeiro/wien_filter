@@ -4,6 +4,7 @@ program wien_filter
   use verlet
   use cmd_line
   implicit none
+  integer :: ios
   integer(ik) :: i,p,n_p,n,s,position
   real(rk) :: e_in,b_in,m_i,q_i,m,q,dt
   real(rk),dimension(3) :: L,v_i,x,v,a,E,B
@@ -15,20 +16,26 @@ program wien_filter
   dt=cmd2real(1)
   b_in=cmd2real(2)
   e_in=cmd2real(3)
-
+  
   !error checking
   check_input: if (any(([dt,b_in,e_in])==outreal)) then
-     print *,'wien_filter [dt] [Bx] [Ez]'
+     print *,'wien_filter [dt] [Bx] [Ez] [input file] [output file]'
      stop
   end if check_input
 
   !input file opening
-  open(10,file='../run/input.dat',action='read')
+  open(10,file='../run/input.dat',iostat=ios,action='read')
+  if (ios/=0) then
+     print *,"Sorry, can't read inputfile"
+  end if
   read(10,*),n_p !number of particles to proccess
 
   !output file opening
-  open(20,file='../run/output.dat',action='write')
-  write(20,*)
+  open(20,file='../run/output.dat',iostat=ios,action='write')
+  if (ios/=0) then
+     print *,"Sorry, can't write to outputfile"
+  end if
+
   s=0 !succesfull particle counter
 
   !fields initialization
