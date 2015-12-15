@@ -1,8 +1,17 @@
 Velocity Selector Simulator
 ===========================
 
-Compilation Instructions:
+Short compilation instructions:
+--------------------------------
 
-Run the script build.sh [compiler] contained in this directory (src/build.sh).
-The compiler argument is mandatory, it selects the compiler used to compile the source code and can be set to 2 options: ifort (Intel Fotran) or gfortran (gfortran).
-Note that the compiler chosen must be installed on your system for the process be completed succesfully.
+At the src folder (if not there, cd ./src)
+
+For compiling with Intel® Fortran (if already installed) run:
+
+./build.sh ifort
+
+For compiling with GNU-Fortran (if already installed), run:
+
+./build.sh gfortran
+
+If the compilation ends successfully, a executable file named "wien_filter" will appear at the src directory.

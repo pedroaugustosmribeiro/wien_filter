@@ -1,0 +1,72 @@
+Velocity Selector Simulator
+===========================
+
+Short run instructions:
+------------------------
+
+Change to src directory, if not already there. Run the program, specifying the proper parameters:
+
+./wien_filter dt Bx Ez
+
+Parameters (real numbers, accepts cientific notation, eg 1e-10):
+
+	dt: time-step interval (in seconds)
+
+	Bx: x-axis component of magnetic field (in Tesla). 
+	    The other two components are set to 0 inside the code
+
+	Ez: z-axis component of electric field (in V/m).
+	    The other two components are set to 0 inside the code
+
+Input data:
+------------
+
+Located at the run directory, the data to be processed must be inside a plain text
+file named "input.dat". An example "input.dat" is already included.
+
+Output dat:
+------------
+
+Located at the run directory, the processed data will appear in a plain text file
+named "output.dat" after the execution of the program.
+
+
+--------------------------------------------------------------------------
+				Important:
+--------------------------------------------------------------------------
+
+The compiled program must be run inside the directory src, with the terminal pointing to it.
+If you move the file "wien_filter" to another place, or run it from another folder,
+it fail with an "Can't read inputfile" error.
+
+
+Input data structure:
+----------------------
+
+line
+1	number of particles to simulate
+2	n vx vy vz m q
+.
+.
+
+Where:
+	n: particle number, integer only. Start at 1,2,...
+	   (just to diferentiate between diferent particles)
+	vx vy vz: components x,y and z of initial velocity of particle n (in m/s)
+	      	  ,real.
+	m: mass of particle n (in units of electron mass), real. Shall be positive.
+	q: charge of particle n (in units of absolute value of electron charge)
+	   ,real. Especify a signed value.
+
+Example:
+One electron with initial velocity V= 10j m/s.
+
+1
+1 0 10 0 1 -1
+
+Output data structure:
+-----------------------
+
+Basically the same as the input data, but with the number of particles that passed
+through the configured filter written on the last line, preceded by the non-filtered
+ particles information.
