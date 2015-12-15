@@ -5,7 +5,7 @@ program wien_filter
   use cmd_line
   implicit none
   integer :: ios
-  integer(ik) :: i,p,n_p,n,s,position
+  integer(ik) :: p,n_p,n,s,position
   real(rk) :: e_in,b_in,m_i,q_i,m,q,dt
   real(rk),dimension(3) :: L,v_i,x,v,a,E,B
 
@@ -16,10 +16,10 @@ program wien_filter
   dt=cmd2real(1)
   b_in=cmd2real(2)
   e_in=cmd2real(3)
-  
+
   !error checking
   check_input: if (any(([dt,b_in,e_in])==outreal)) then
-     print *,'wien_filter [dt] [Bx] [Ez] [input file] [output file]'
+     print *,'wien_filter [dt] [Bx] [Ez]'
      stop
   end if check_input
 
@@ -57,23 +57,21 @@ program wien_filter
      x=[L(1)/2,.0_rk,L(3)/2] !initial position at the center of the box
      v=v_i
      a=fl(q,m,E,B,v)
-     i=0
 
      simulation:  do
 
         !stop criterias
         if ((abs(x(1))>=L(1)).or.(abs(x(3))>=L(3))) then
-           print *,n,'filtered in',i !unsuccesful :(
+           !unsuccesful :(
            exit
         else if (x(2)>=L(2)) then
            s=s+1
-           print *,n,'passed in ',i !succesful :)
+           !succesful :)
            write(20,'(i0,x,8(g0,x))'),n,v,x,m_i,q_i
            exit
         end if
 
         call integrate(E,B,dt,q,m,x,v,a) !integrate subroutine in verlet.f90 module
-        i=i+1
      end do simulation
 
   end do particles

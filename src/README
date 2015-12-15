@@ -1,0 +1,8 @@
+Velocity Selector Simulator
+===========================
+
+Compilation Instructions:
+
+Run the script build.sh [compiler] contained in this directory (src/build.sh).
+The compiler argument is mandatory, it selects the compiler used to compile the source code and can be set to 2 options: ifort (Intel Fotran) or gfortran (gfortran).
+Note that the compiler chosen must be installed on your system for the process be completed succesfully.

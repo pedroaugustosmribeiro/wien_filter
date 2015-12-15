@@ -4,8 +4,7 @@ fmode=$2
 fopt=``
 fdevel=``
     if [ "$fcomp" == 'ifort' ]; then
-	fopt='-fast -parallel -openmp' #-par-report=3' #devel
-	#fopt='-fast -parallel -qopenmp -fno-alias -m64 -simd -qoffload-arch=ivybridge'
+	fopt='-fast'
 	if [ "$fmode" == 'devel' ]; then
 	    fdevel='-CB'	    
 	fi
