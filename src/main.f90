@@ -5,7 +5,7 @@ program wien_filter
   use cmd_line
   implicit none
   integer :: ios
-  integer(ik) :: p,n_p,n,s,position
+  integer(ik) :: p,n_p,n,s
   real(rk) :: e_in,b_in,m_i,q_i,m,q,dt
   real(rk),dimension(3) :: L,v_i,x,v,a,E,B
 
