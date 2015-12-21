@@ -8,7 +8,7 @@ contains
     real(rk),intent(in),dimension(3) :: E,B,v
     real(rk) :: fl(3)
 
-    fl=(q/m)*(E+cross(v,B))
+    fl=(q*(E+cross(v,B)))/m
 
   end function fl
   

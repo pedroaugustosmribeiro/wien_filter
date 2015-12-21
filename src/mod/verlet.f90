@@ -11,7 +11,8 @@ contains
     real(rk),intent(inout),dimension(3) :: x,v,a
     real(rk),dimension(3) :: vn
 
-    x=x+v*dt+a*(dt**2)
+    a=fl(q,m,E,B,v)
+    x=x+v*dt+0.5_rk*(a*(dt**2))
     vn=v+a*dt
     v=v+0.5_rk*(a+fl(q,m,E,B,vn))*dt
 

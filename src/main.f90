@@ -56,7 +56,6 @@ program wien_filter
 
      x=[L(1)/2,.0_rk,L(3)/2] !initial position at the center of the box
      v=v_i
-     a=fl(q,m,E,B,v)
 
      simulation:  do
 
@@ -70,7 +69,6 @@ program wien_filter
            write(20,'(i0,x,8(g0,x))'),n,v,x,m_i,q_i
            exit
         end if
-
         call integrate(E,B,dt,q,m,x,v,a) !integrate subroutine in verlet.f90 module
      end do simulation
 
